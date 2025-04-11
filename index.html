@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Nutrition - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/Welcome Logo.png" class="welcome-graphic">
+        <h1>Welcome to P1 Health & Nutrition</h1>
+
+        <div class="form-section">
+            <h2>Login</h2>
+            <label for="txtLoginUser">Username:</label>
+            <input type="text" id="txtLoginUser" placeholder="Enter username">
+
+            <label for="txtLoginPass">Password:</label>
+            <input type="password" id="txtLoginPass" placeholder="Enter password">
+
+            <button id="btnLogin">Login</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Register</h2>
+            <label for="txtRegUser">New Username:</label>
+            <input type="text" id="txtRegUser" placeholder="Choose a username">
+
+            <label for="txtRegPass">New Password:</label>
+            <input type="password" id="txtRegPass" placeholder="Choose a password">
+
+            <button id="btnRegister">Register</button>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById('btnLogin');
+        const registerBtn = document.getElementById('btnRegister');
+
+        loginBtn.addEventListener('click', () => {
+            const username = document.getElementById('txtLoginUser').value.trim();
+            const password = document.getElementById('txtLoginPass').value.trim();
+
+            if (username === '' || password === '') {
+                alert('Please enter both username and password.');
+                return;
+            }
+
+            const storedUser = localStorage.getItem('username');
+            const storedPass = localStorage.getItem('password');
+
+            if (username === storedUser && password === storedPass) {
+                alert('Login successful! Redirecting to Calorie Counter...');
+                window.location.href = 'calories.html';
+            } else {
+                alert('Invalid credentials.');
+            }
+        });
+
+        registerBtn.addEventListener('click', () => {
+            const username = document.getElementById('txtRegUser').value.trim();
+            const password = document.getElementById('txtRegPass').value.trim();
+
+            if (username === '' || password === '') {
+                alert('Please fill out both fields.');
+                return;
+            }
+
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+
+            alert('Registration successful! You can now log in.');
+        });
+    </script>
+</body>
+
+</html>

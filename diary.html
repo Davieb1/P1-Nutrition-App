@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+            color: #2d3436;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            padding-left: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .diary-image {
+            display: block;
+            max-width: 250px;
+            margin: 0 auto 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            margin: 10px 0 20px;
+            border-radius: 10px;
+            border: 1px solid #dfe6e9;
+            font-size: 1rem;
+            background-color: #f7f9fa;
+            transition: border 0.2s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #00b894;
+            outline: none;
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            background-color: #00b894;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #019875;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f1f2f6;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        li:hover {
+            background: #dfe6e9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Diary</h1>
+        <img src="images/diary.png" alt="Diary Illustration" class="diary-image">
+
+        <input type="text" id="txtTitle" placeholder="Entry Title">
+        <textarea id="txtContent" placeholder="Write your entry here..."></textarea>
+
+        <div class="buttons">
+            <button onclick="saveEntry()">Save</button>
+            <button onclick="navigate('calories.html')">Food Counter</button>
+            <button onclick="navigate('bmi.html')">BMI</button>
+            <button onclick="navigate('report.html')">Report</button>
+            <button onclick="navigate('index.html')">Return to Login</button>
+        </div>
+
+        <!-- <h2>Saved Entries</h2>
+        <ul id="lstBlogPosts"></ul> -->
+    </div>
+
+    <script>
+        const lstBlogPosts = document.getElementById('lstBlogPosts');
+        const txtTitle = document.getElementById('txtTitle');
+        const txtContent = document.getElementById('txtContent');
+
+        function saveEntry() {
+            const title = txtTitle.value.trim();
+            const content = txtContent.value.trim();
+
+            if (!title || !content) {
+                alert("Please enter both title and content for the blog post.");
+                return;
+            }
+
+            const entry = `${title}: ${content}`;
+
+            const li = document.createElement('li');
+            li.textContent = title;
+            li.onclick = () => {
+                const parts = entry.split(":");
+                if (parts.length > 1) {
+                    txtContent.value = parts[1].trim();
+                } else {
+                    txtContent.value = entry;
+                }
+                txtContent.readOnly = true;
+            };
+
+            lstBlogPosts.appendChild(li);
+            txtTitle.value = '';
+            txtContent.value = '';
+            txtContent.readOnly = false;
+            alert("Blog post saved successfully!");
+        }
+
+        function navigate(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+
+</html>
